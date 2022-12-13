@@ -8,9 +8,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ilaydabykakova.foodrecipes.R
-import com.ilaydabykakova.foodrecipes.databinding.ItemRecipesBinding
+import com.ilaydabykakova.foodrecipes.databinding.ItemSavedRecipesBinding
 import com.ilaydabykakova.foodrecipes.models.Recipe
-
 import kotlinx.android.synthetic.main.item_recipes.view.*
 
 class SavedAdapter(): ListAdapter<Recipe,RecyclerView.ViewHolder>(DIFF_CALLBACK) {
@@ -36,7 +35,7 @@ class SavedAdapter(): ListAdapter<Recipe,RecyclerView.ViewHolder>(DIFF_CALLBACK)
             notifyDataSetChanged()
         }
 
-    inner class RecipeViewHolder(private val binding: ItemRecipesBinding):RecyclerView.ViewHolder(binding.root){
+    inner class SavedRecipeViewHolder(private val binding: ItemSavedRecipesBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             val response = items.get(position)
             binding.recipe = response
@@ -48,7 +47,7 @@ class SavedAdapter(): ListAdapter<Recipe,RecyclerView.ViewHolder>(DIFF_CALLBACK)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
        return when(viewType){
-           R.layout.item_recipes -> RecipeViewHolder(ItemRecipesBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+           R.layout.item_saved_recipes -> SavedRecipeViewHolder(ItemSavedRecipesBinding.inflate(LayoutInflater.from(parent.context),parent,false))
            else -> throw IllegalArgumentException("Invalid")
        }
     }
@@ -56,7 +55,7 @@ class SavedAdapter(): ListAdapter<Recipe,RecyclerView.ViewHolder>(DIFF_CALLBACK)
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder){
-            is RecipeViewHolder -> holder.bind(position)
+            is SavedRecipeViewHolder -> holder.bind(position)
 
         }
     }
@@ -66,7 +65,7 @@ class SavedAdapter(): ListAdapter<Recipe,RecyclerView.ViewHolder>(DIFF_CALLBACK)
     }
 
     override fun getItemViewType(position: Int): Int {
-        return R.layout.item_recipes
+        return R.layout.item_saved_recipes
 
     }
 }

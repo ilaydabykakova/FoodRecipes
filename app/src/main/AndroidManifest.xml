@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodRecipes"
         android:hardwareAccelerated="true"
-        android:name=".RecipesApplication"
+        android:name=".RecipesApp"
         android:enabled="true"
         tools:targetApi="31">
         <activity

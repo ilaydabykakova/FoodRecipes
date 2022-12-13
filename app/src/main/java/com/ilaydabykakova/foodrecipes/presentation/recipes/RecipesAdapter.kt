@@ -31,12 +31,13 @@ class RecipesAdapter(val onSavedClick: (position : Int,result: Recipe) -> Unit,
                     binding.recipe = recipe.singleRecipe
 
                      binding.saveSingleRecipe.setOnClickListener {
-                         onSavedClick.invoke(position,response)
+                         onSavedClick.invoke(adapterPosition,response)
                          binding.saveSingleRecipe.visibility = View.INVISIBLE
                          binding.savedSingleRecipe.visibility = View.VISIBLE
                 }
+
                    binding.savedSingleRecipe.setOnClickListener{
-                       onDeleteClick.invoke(position,response)
+                       onDeleteClick.invoke(adapterPosition,response)
                        binding.saveSingleRecipe.visibility = View.VISIBLE
                        binding.savedSingleRecipe.visibility = View.INVISIBLE
                    }
@@ -49,14 +50,14 @@ class RecipesAdapter(val onSavedClick: (position : Int,result: Recipe) -> Unit,
                 val response = recipe.multiRecipe
                 binding.recipe = recipe.multiRecipe
                 binding.saveMultipleRecipe.setOnClickListener {
-                    onSavedClick.invoke(position, response)
+                    onSavedClick.invoke(adapterPosition, response)
                     binding.saveMultipleRecipe.visibility = View.INVISIBLE
                     binding.savedMultipleRecipe.visibility = View.VISIBLE
                 }
                 binding.savedMultipleRecipe.setOnClickListener{
-                    onDeleteClick.invoke(position,response)
+                    onDeleteClick.invoke(adapterPosition,response)
                     binding.saveMultipleRecipe.visibility = View.VISIBLE
-                    binding.saveMultipleRecipe.visibility = View.INVISIBLE
+                    binding.savedMultipleRecipe.visibility = View.INVISIBLE
                 }
             }
         }

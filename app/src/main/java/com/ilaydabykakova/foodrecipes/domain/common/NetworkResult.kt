@@ -1,4 +1,4 @@
-package com.ilaydabykakova.foodrecipes.utils
+package com.ilaydabykakova.foodrecipes.domain.common
 
 
 sealed class NetworkResult<T>(

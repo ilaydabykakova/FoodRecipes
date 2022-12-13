@@ -1,9 +1,9 @@
-package com.ilaydabykakova.foodrecipes.domain.repo
+package com.ilaydabykakova.foodrecipes.data.recipes
 
 import androidx.lifecycle.LiveData
 import com.ilaydabykakova.foodrecipes.models.Recipe
 import com.ilaydabykakova.foodrecipes.models.RecipeResponse
-import com.ilaydabykakova.foodrecipes.utils.NetworkResult
+import com.ilaydabykakova.foodrecipes.domain.common.NetworkResult
 
 interface RecipeRepository{
 
@@ -13,7 +13,9 @@ interface RecipeRepository{
 
     suspend fun upsert(recipe:Recipe) : Long
 
-    fun getSavedRecipe() : LiveData<List<Recipe>>
+    fun getSavedRecipe() :LiveData<List<Recipe>>
 
     suspend fun delete(recipe: Recipe)
+
+
 }

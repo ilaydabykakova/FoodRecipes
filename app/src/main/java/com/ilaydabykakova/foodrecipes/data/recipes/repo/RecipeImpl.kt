@@ -1,12 +1,13 @@
-package com.ilaydabykakova.foodrecipes.domain.repo
+package com.ilaydabykakova.foodrecipes.data.recipes.repo
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
-import com.ilaydabykakova.foodrecipes.data.api.RecipeAPI
-import com.ilaydabykakova.foodrecipes.data.db.RecipeDatabase
+import com.ilaydabykakova.foodrecipes.data.recipes.RecipeRepository
+import com.ilaydabykakova.foodrecipes.data.recipes.api.RecipeAPI
+import com.ilaydabykakova.foodrecipes.data.recipes.local.RecipeDatabase
 import com.ilaydabykakova.foodrecipes.models.Recipe
 import com.ilaydabykakova.foodrecipes.models.RecipeResponse
-import com.ilaydabykakova.foodrecipes.utils.NetworkResult
+import com.ilaydabykakova.foodrecipes.domain.common.NetworkResult
 
 class RecipeImpl constructor(private val db: RecipeDatabase, private val service: RecipeAPI):
     RecipeRepository {
@@ -51,7 +52,5 @@ class RecipeImpl constructor(private val db: RecipeDatabase, private val service
     override suspend fun delete(recipe: Recipe) {
         return db.getRecipeDao().deleteRecipe(recipe)
     }
-
-
 
 }

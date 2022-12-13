@@ -1,4 +1,4 @@
-package com.ilaydabykakova.foodrecipes.data.db
+package com.ilaydabykakova.foodrecipes.data.recipes.local
 
 import android.content.Context
 import androidx.room.Database

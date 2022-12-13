@@ -1,4 +1,4 @@
-package com.ilaydabykakova.foodrecipes.data.db
+package com.ilaydabykakova.foodrecipes.data.recipes.local
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
@@ -15,4 +15,6 @@ interface RecipeDao {
     @Delete
     suspend fun deleteRecipe(recipe: Recipe)
 
+    @Update
+    fun updateRecipe(recipe: List<Recipe>)
 }

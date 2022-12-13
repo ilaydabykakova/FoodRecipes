@@ -3,19 +3,14 @@ package com.ilaydabykakova.foodrecipes.presentation.recipes
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.recyclerview.widget.GridLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import com.ilaydabykakova.foodrecipes.R
 import com.ilaydabykakova.foodrecipes.domain.uimodel.RecipeUIModel
 import com.ilaydabykakova.foodrecipes.databinding.FragmentRecipesBinding
 import com.ilaydabykakova.foodrecipes.models.Recipe
-import com.ilaydabykakova.foodrecipes.utils.NetworkResult
+import com.ilaydabykakova.foodrecipes.domain.common.NetworkResult
 import com.ilaydabykakova.foodrecipes.utils.viewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -26,18 +21,13 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
     private val viewModels by viewModel<RecipesViewModel>()
 
     private val recipeAdapter by lazy(LazyThreadSafetyMode.NONE) {
-        RecipesAdapter ({ position: Int, result: Recipe ->
-            viewModels.saveRecipe(result)
-            view?.let {
-                Snackbar.make(it, "Your recipe added in your collections", Snackbar.LENGTH_LONG)
-            }?.show()
-        },{ position: Int, result: Recipe ->
-            viewModels.deleteRecipe(result)
-            view?.let {
-                Snackbar.make(it, "Your recipe deleted in your collections", Snackbar.LENGTH_LONG)
-            }?.show()
-        }
-        )
+        RecipesAdapter (onSavedClick = { position: Int, recipe: Recipe ->
+            viewModels.saveRecipe(recipe)
+
+        }, onDeleteClick = { position: Int, recipe: Recipe ->
+            viewModels.deleteRecipe(recipe)
+            viewModels.getRecipe()
+        })
     }
 
     val TAG = "BreakingRecipesList"
@@ -115,5 +105,6 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
             adapter = recipeAdapter
         }
     }
+
 }
 

@@ -6,15 +6,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ilaydabykakova.foodrecipes.domain.uimodel.RecipeUIModel
 import com.ilaydabykakova.foodrecipes.models.Recipe
-import com.ilaydabykakova.foodrecipes.domain.repo.RecipeImpl
-import com.ilaydabykakova.foodrecipes.utils.NetworkResult
+import com.ilaydabykakova.foodrecipes.data.recipes.repo.RecipeImpl
+import com.ilaydabykakova.foodrecipes.domain.common.NetworkResult
 import kotlinx.coroutines.*
+
 
 class RecipesViewModel constructor( private val recipeRepository : RecipeImpl): ViewModel() {
 
 
     private val _itemListItemsLiveData = MutableLiveData<NetworkResult<List<RecipeUIModel>>>()
     val itemListItemsLiveData: LiveData<NetworkResult<List<RecipeUIModel>>> = _itemListItemsLiveData
+
 
     init {
 
@@ -26,12 +28,14 @@ class RecipesViewModel constructor( private val recipeRepository : RecipeImpl): 
         recipeRepository.upsert(recipe)
     }
 
-    fun getSavedRecipe() = recipeRepository.getSavedRecipe()
+    fun getRecipe() =  recipeRepository.getSavedRecipe()
 
 
     fun deleteRecipe(recipe: Recipe) = viewModelScope.launch {
         recipeRepository.delete(recipe)
     }
+
+
 
     private fun  getItemListItems() = viewModelScope.launch {
         _itemListItemsLiveData.postValue(NetworkResult.Loading())
@@ -46,6 +50,7 @@ class RecipesViewModel constructor( private val recipeRepository : RecipeImpl): 
         if (singleRecipe is NetworkResult.Success && multiRecipe is NetworkResult.Success) {
 
             homeItemsList.add(RecipeUIModel.Title("Recommended Recipes"))
+
             for(item in singleRecipe.data?.recipes.orEmpty()) {
                 homeItemsList.add(RecipeUIModel.SingleItem(item))
             }
@@ -61,7 +66,8 @@ class RecipesViewModel constructor( private val recipeRepository : RecipeImpl): 
             NetworkResult.Error("Invalid",null)
         }
     }
-}
+
+    }
 
 
 
